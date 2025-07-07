@@ -4,13 +4,13 @@ import './CoreConcept.css';
 //   return (
 //     <li>
 //       <img src={props.image} alt="..." />
-//       <h3>{props.title}</h3>
+//       <h3>{props.title}</h3>F
 //       <p>{props.description}</p>
 //     </li>
 //   );
 // }
 
-export default function CoreConcept({image, title, description}) {
+export default function CoreConcept({ image, title, description }) {
   return (
     <li>
       <img src={image} alt="..." />
