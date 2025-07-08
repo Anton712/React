@@ -6,7 +6,7 @@ import TabButton from './components/TabButton/TabButton.jsx';
 import { useState } from 'react';
 
 function App() {
-  const [selectedTopic, setSelectedTopic] = useState("components");
+  const [selectedTopic, setSelectedTopic] = useState();
   // useState is a React hook that allows you to add state to functional components.
   // It returns an array with two elements: the current state value and a function to update
 
@@ -15,6 +15,22 @@ function App() {
     setSelectedTopic(selectedButton);
     // console.log("Tab selected - " + selectedButton);
     // if you log after the setSelectedTopic, it will still show the previous value because state updates are asynchronous.
+  }
+
+  let tabContent = <p>Please select a topic</p>;
+
+  if (selectedTopic) {
+    tabContent = (
+      <div id="tab-content">
+        <h3>{EXAMPLES[selectedTopic].title}</h3>
+        <p>{EXAMPLES[selectedTopic].description}</p>
+        <pre>
+          <code>
+            {EXAMPLES[selectedTopic].code}
+          </code>
+        </pre>
+      </div>
+    );
   }
 
   return (
@@ -41,15 +57,7 @@ function App() {
             <TabButton onSelect={() => handleSelect("props")}>Props</TabButton>
             <TabButton onSelect={() => handleSelect("state")}>State</TabButton>
           </menu>
-          <div id="tab-content">
-            <h3>{EXAMPLES[selectedTopic].title}</h3>
-            <p>{EXAMPLES[selectedTopic].description}</p>
-            <pre>
-              <code>
-                {EXAMPLES[selectedTopic].code}
-              </code>
-            </pre>
-          </div>
+          {tabContent}
         </section>
       </main>
     </div>
