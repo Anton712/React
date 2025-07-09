@@ -1,4 +1,4 @@
-export default function Tabs({ children, buttons, ButtonsContainer }) {
+export default function Tabs({ children, buttons, ButtonsContainer = "menu" }) {
 // const ButtonsContainer = buttonsContainer;
 // received component identifier as a prop
 // prop must be usable as a custom component in the receiving component, it must start with uppercase character,

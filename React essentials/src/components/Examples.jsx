@@ -35,7 +35,6 @@ export default function Examples() {
 	return (
 		<Section id="examples" title="Examples">
 			<Tabs
-				ButtonsContainer="menu" // use string for built in types, or use {} for custom components
 				buttons={
 					<>
 						<TabButton isSelected={selectedTopic === 'components'} onClick={() => handleSelect("components")}>Components</TabButton>
