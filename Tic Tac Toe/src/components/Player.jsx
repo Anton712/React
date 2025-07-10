@@ -17,7 +17,8 @@ export default function Player({ initialName, symbol }) {
   let editablePlayerName = isEditing
     ? <input type="text" required value={playerName} onChange={handleNameChange}></input>
     : <span className="player-name">{playerName}</span>;
-    let buttonCaption = isEditing ? "Save" : "Edit";
+
+  let buttonCaption = isEditing ? "Save" : "Edit";
 
   return (
     <li>
