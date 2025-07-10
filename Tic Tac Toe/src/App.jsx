@@ -11,6 +11,7 @@ function App() {
     setActivePlayer((currentPlayer) => {
       return currentPlayer === "X" ? "O" : "X";
     });
+
     setGameTurns(previousTurns => {
       let currentPlayer = "X";
       if (previousTurns.length > 0 && previousTurns[0].player === "X") {
@@ -24,22 +25,33 @@ function App() {
         },
         player: currentPlayer
       }, ...previousTurns];
-  });
-}
 
-return (
-  <main>
-    <div id="game-container">
-      <ol id="players" className="highlight-player">
-        <Player initialName="Player 1" symbol="X" isActive={activePlayer === "X"} />
-        <Player initialName="Player 2" symbol="O" isActive={activePlayer === "O"} />
-      </ol>
+      return updatedTurns;
+    });
+  }
 
-      <GameBoard onSelectSquare={handleSelectSquare} activePlayerSymbol={activePlayer} />
-    </div>
-    <Log />
-  </main >
-)
+  return (
+    <main>
+      <div id="game-container">
+        <ol id="players" className="highlight-player">
+          <Player
+            initialName="Player 1"
+            symbol="X"
+            isActive={activePlayer === "X"} />
+          <Player
+            initialName="Player 2"
+            symbol="O"
+            isActive={activePlayer === "O"} />
+        </ol>
+
+        <GameBoard
+          onSelectSquare={handleSelectSquare}
+          turns={gameTurns} />
+      </div>
+      <Log
+        turns={gameTurns} />
+    </main >
+  )
 }
 
 export default App
