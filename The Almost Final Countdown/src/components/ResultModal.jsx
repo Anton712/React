@@ -1,4 +1,5 @@
-import { useRef, useImperativeHandle } from "react"
+import { useRef, useImperativeHandle } from "react";
+import { createPortal } from "react-dom";
 
 export default function ResultModal({ref, targetTime, remainingTime, onReset }) {
   const dialog = useRef();
@@ -15,7 +16,8 @@ export default function ResultModal({ref, targetTime, remainingTime, onReset }) 
     }
   })
 
-  return <dialog className="result-modal" ref={dialog} onClose={onReset}>
+  return createPortal(
+    <dialog className="result-modal" ref={dialog} onClose={onReset}>
     {userLost && <h2>You lost</h2>}
     {!userLost && <h2>Your score: {score}</h2>}
     <p>The target time was <strong>{targetTime} seconds</strong></p>
@@ -23,7 +25,9 @@ export default function ResultModal({ref, targetTime, remainingTime, onReset }) 
     <form method="dialog" onSubmit={onReset}>
       <button>Close</button>
     </form>
-  </dialog>
+  </dialog>,
+  document.getElementById("modal")
+  )
 }
 
 // old way of passing ref to child component before React 19
