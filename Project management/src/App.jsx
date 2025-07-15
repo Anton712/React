@@ -28,8 +28,13 @@ function App() {
     })
   }
 
-  function handleDeleteTask() {
-
+  function handleDeleteTask(id) {
+    setProjectsState(prevState => {
+      return {
+        ...prevState,
+        tasks: prevState.tasks.filter(task => task.id !== id)
+      }
+    })
   }
 
   function handleDeleteProject() {
@@ -105,7 +110,8 @@ function App() {
       <Sidebar
         onStartAddProject={handleStartAddProject}
         projects={projectsState.projects}
-        onSelectProject={handleSelectProject} />
+        onSelectProject={handleSelectProject}
+        selectedProjectId={projectsState.selectedProjectId} />
       {content}
     </main>
   );
