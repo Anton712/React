@@ -1,15 +1,20 @@
-import { use, useActionState } from "react";
+import { use, useActionState, useOptimistic } from "react";
 import { OpinionsContext } from "../store/opinions-context";
 
 export function Opinion({ opinion: { id, title, body, userName, votes } }) {
   const { upvoteOpinion, downvoteOpinion } = use(OpinionsContext);
 
+  const [optimisticVotes, setVotesOptimistically] = useOptimistic(
+    votes,
+    (prevVotes, mode) => mode === "up" ? prevVotes + 1 : prevVotes - 1);
 
   async function upvoteAction() {
+    setVotesOptimistically("up");
     await upvoteOpinion(id);
   }
 
   async function downwoteAction() {
+    setVotesOptimistically("down");
     await downvoteOpinion(id);
   }
 
@@ -43,7 +48,7 @@ export function Opinion({ opinion: { id, title, body, userName, votes } }) {
           </svg>
         </button>
 
-        <span>{votes}</span>
+        <span>{optimisticVotes}</span>
 
         <button formAction={downwoteFormAction} disabled={upvotePending || downwotePending}>
           <svg
