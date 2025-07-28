@@ -1,8 +1,11 @@
-import { useActionState } from "react";
+import { useActionState, use } from "react";
+import { OpinionsContext } from "../store/opinions-context";
 
 export function NewOpinion() {
-  function shareOpinionAction(prevFormState, formData) {
-    const username = formData.get("userName");
+  const { addOpinion } = use(OpinionsContext);
+
+  async function shareOpinionAction(prevFormState, formData) {
+    const userName = formData.get("userName");
     const title = formData.get("title");
     const body = formData.get("body");
 
@@ -16,7 +19,7 @@ export function NewOpinion() {
       errors.push("Opinion must be between 10 and 300 characters long")
     }
 
-    if (!username.trim()) {
+    if (!userName.trim()) {
       errors.push("Please provide your name")
     }
 
@@ -26,12 +29,13 @@ export function NewOpinion() {
         enteredValues: {
           title,
           body,
-          username
+          userName
         }
       };
     }
 
     // submit to backend
+    await addOpinion({ title, body, userName });
 
     return { errors: null };
   }
@@ -45,12 +49,12 @@ export function NewOpinion() {
         <div className="control-row">
           <p className="control">
             <label htmlFor="userName">Your Name</label>
-            <input type="text" id="userName" name="userName" defaultValue={formState.enteredValues?.username}/>
+            <input type="text" id="userName" name="userName" defaultValue={formState.enteredValues?.userName} />
           </p>
 
           <p className="control">
             <label htmlFor="title">Title</label>
-            <input type="text" id="title" name="title" defaultValue={formState.enteredValues?.title}/>
+            <input type="text" id="title" name="title" defaultValue={formState.enteredValues?.title} />
           </p>
         </div>
         <p className="control">
