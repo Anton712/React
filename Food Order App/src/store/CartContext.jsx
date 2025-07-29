@@ -10,7 +10,7 @@ function cartReducer(state, action) {
   if (action.type === "ADD_ITEM") {
     // ... update state to add meal item
     const existingCartItemIndex = state.items.findIndex(
-      (item) => item.id === action.id
+      (item) => item.id === action.item.id
     );
 
     const updatedItems = [...state.items];
@@ -34,7 +34,7 @@ function cartReducer(state, action) {
   if (action.type === "REMOVE_ITEM") {
     // ... update state to remove meal item
     const existingCartItemIndex = state.items.findIndex(
-      (item) => item.id === action.item.id
+      (item) => item.id === action.id
     );
 
     const existingCartItem = state.items[existingCartItemIndex];
